@@ -1,1 +1,106 @@
-hi 
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="processing.js"></script>
+<body bgcolor="#000000">
+
+<center>
+<h2>Nooooo not a sill fire again!</h2>
+
+
+<script type="application/processing">
+int fXSIZE=800;
+int fYSIZE=200;
+color[] fcolors;
+int[] ftempBuffer;
+PImage fbuffer;
+int fofs = fXSIZE*170;
+int frnd = fXSIZE*30;
+color fyellow = color(255,255,111);
+
+void setup() 
+{
+  frameRate(15);
+  size(fXSIZE, fYSIZE);
+  noStroke();
+  smooth();
+  fbuffer = createImage(fXSIZE, fYSIZE, RGB);
+  fcolors = new color[256];
+  ftempBuffer = new int[fXSIZE*fYSIZE];
+  
+  for (int i = 0; i < 32; ++i) {
+    /* black to blue, 32 values*/
+    fcolors[i]=color(0, 0, i << 1);
+
+    /* blue to red, 32 values*/
+    fcolors[i + 32]=color(i << 3, 0, 64 - (i << 1));
+
+    /*red to yellow, 32 values*/
+    fcolors[i + 64]=color(255, i << 3, 0);
+
+    /* yellow to white, 162 */
+    fcolors[i + 96]=color(255, 255, i << 2);
+    fcolors[i + 128]=color(255, 255, 64+(i << 2));
+    fcolors[i + 160]=color(255, 255, 128+(i << 2));
+    fcolors[i + 192]=color(255, 255, 192+i);
+    fcolors[i + 224]=color(255, 255, 224+i);
+  } 
+}
+
+void draw() 
+{ 
+  //update buffer
+  fbuffer.loadPixels();
+  
+  int j = fXSIZE*(fYSIZE-1);
+  for (int i = 0; i < fXSIZE; i++) {
+    int frandom = int(random(16));
+		  // the lower the value, the intense the fire, compensate a lower value with a higher decay value
+			if (frandom > 8) {
+				//maximum heat
+				ftempBuffer[j + i] = 255+int(random(100)); 
+			} else {
+				ftempBuffer[j + i] = int(random(40));
+			}
+  }  
+  
+  for (int i = 0; i < 4; i++) {
+    int frandom = int(random(frnd));
+    ftempBuffer[fofs+frandom] = 8000+int(random(30000)); 
+  }
+  
+  int ftemp;
+  for (int findex = 0; findex < fYSIZE-1; findex++) {
+    for (int i = 0; i < fXSIZE; i++) {
+      //simple blur
+      ftemp  = ftempBuffer[j + i];
+      ftemp += ftempBuffer[j + i + 1];
+      ftemp += ftempBuffer[j + i - 1];
+      ftemp += ftempBuffer[j - fXSIZE + i];
+      ftemp >>= 2;
+          
+      // decay 
+      if (ftemp > 1) {        
+        ftemp --; 
+      }
+      
+      //update internal buffer and image
+      ftempBuffer[j - fXSIZE + i] = ftemp;
+      fbuffer.pixels[j - fXSIZE + i] = fcolors[ftemp];
+    }
+    
+    j -= fXSIZE;
+  }
+  
+  fbuffer.updatePixels();
+  
+    //display buffer
+  image(fbuffer,0,0);
+
+}
+
+</script><canvas width="795" height="195"></canvas></p>
+<div style="height:0px;width:0px;overflow:hidden;"></div>
+</center>
+</body>
+</html>
