@@ -20,7 +20,7 @@ color fyellow = color(255,255,111);
 
 void setup() 
 {
-  frameRate(15);
+  frameRate(25);
   size(fXSIZE, fYSIZE);
   noStroke();
   smooth();
@@ -60,7 +60,7 @@ void draw()
 				//maximum heat
 				ftempBuffer[j + i] = 255+int(random(100)); 
 			} else {
-				ftempBuffer[j + i] = int(random(40));
+				ftempBuffer[j + i] = 10;
 			}
   }  
   
@@ -86,7 +86,9 @@ void draw()
       
       //update internal buffer and image
       ftempBuffer[j - fXSIZE + i] = ftemp;
-      fbuffer.pixels[j - fXSIZE + i] = fcolors[ftemp];
+      int aa = ftemp;
+      if (aa > 255) aa=255;
+      fbuffer.pixels[j - fXSIZE + i] = fcolors[aa];
     }
     
     j -= fXSIZE;
