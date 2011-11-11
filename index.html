@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="processing.js"></script>
+  <meta charset="utf-8">
+  <title>Processing.js playground</title>
+  <script type="text/javascript" src="processing.js"></script>
+</head>
+
 <body bgcolor="#000000">
-
-<center>
-<h2>Nooooo not a sill fire again!</h2>
-
-
+  <center>
+    <h2>Nooooo not a sill fire again!</h2>
 <script type="application/processing">
 int fXSIZE=800;
 int fYSIZE=200;
@@ -18,8 +19,7 @@ int fofs = fXSIZE*170;
 int frnd = fXSIZE*30;
 color fyellow = color(255,255,111);
 
-void setup() 
-{
+void setup() {
   frameRate(25);
   size(fXSIZE, fYSIZE);
   noStroke();
@@ -47,8 +47,7 @@ void setup()
   } 
 }
 
-void draw() 
-{ 
+void draw() { 
   //update buffer
   fbuffer.loadPixels();
   
@@ -98,11 +97,10 @@ void draw()
   
     //display buffer
   image(fbuffer,0,0);
-
 }
 
-</script><canvas width="795" height="195"></canvas></p>
-<div style="height:0px;width:0px;overflow:hidden;"></div>
-</center>
+</script>    
+    <canvas width="800" height="195"></canvas>
+  </center>
 </body>
 </html>
