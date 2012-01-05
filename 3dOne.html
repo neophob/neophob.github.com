@@ -13,6 +13,7 @@
 
 PImage img;
 int frame;
+int advance = 1;
 
 /* @pjs preload="http://neophob.github.com/data/PixelInvaders.png"; */
 void setup() {
@@ -26,12 +27,15 @@ void setup() {
 void draw() { 
   //black screen
   background(30);
-  
-  int advance = 1;
+  if (advance==1) {
   int rnd = int(random(30));
-  if (rnd==6) {
-  	advance=4;
+  	if (rnd==6) {
+  		advance=4;
+  	}  	
+  } else {
+  	advance--;	
   }
+  
   
   //side view
   rotateY(0.3);
