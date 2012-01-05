@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Processing.js playground</title>
+  <script type="text/javascript" src="processing.js"></script>
+</head>
+
+<body bgcolor="#000000">
+  <center>
+    <h2>Some 3d tests!</h2>
+<script type="application/processing">
+
+PImage img;
+int frame;
+
+/* @pjs preload="http://neophob.github.com/data/PixelInvaders.png"; */
+void setup() {
+  size(800, 600);
+  img = loadImage("http://neophob.github.com/data/PixelInvaders.png"); 
+  noStroke();
+  
+  frameRate(40);
+}
+
+void draw() { 
+  //black screen
+  background(0);
+  
+  //side view
+  rotateY(0.3);
+  
+  //move right
+  translate(frame%(2*img.width+40), 0.0, 0.0);
+
+  //zoom in
+  translate(0, height/2, 444);
+  
+  beginShape();
+  texture(img);
+  vertex(-151, -31, 0, 0,         0);
+  vertex(151,  -31, 0, img.width, 0);
+  vertex(151,   31, 0, img.width, img.height);
+  vertex(-151,  31, 0, 0,         img.height);
+  endShape();
+
+  frame++;
+}
+
+</script>    
+    <canvas width="800" height="600"></canvas>
+  </center>
+</body>
+</html>
