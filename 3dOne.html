@@ -27,7 +27,11 @@ void draw() {
   //black screen
   background(0);
   
-  int advance = random(4);
+  int advance = 1;
+  
+  if (random(40)==6) {
+  	advance=random(4);
+  }
   
   //side view
   rotateY(0.3);
@@ -49,7 +53,7 @@ void draw() {
   endShape();
   popMatrix();
 
-  frame++;
+  frame+=2;
 }
 
 </script>    
