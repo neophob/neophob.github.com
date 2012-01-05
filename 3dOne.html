@@ -20,7 +20,7 @@ void setup() {
   img = loadImage("http://neophob.github.com/data/PixelInvaders.png"); 
   noStroke();
   
-  frameRate(40);
+  frameRate(30);
 }
 
 void draw() { 
@@ -28,7 +28,7 @@ void draw() {
   background(30);
   
   int advance = 1;
-  int rnd = int(random(20));
+  int rnd = int(random(30));
   if (rnd==6) {
   	advance=4;
   }
