@@ -27,14 +27,18 @@ void draw() {
   //black screen
   background(0);
   
+  int advance = random(4);
+  
   //side view
   rotateY(0.3);
-  
+
+  pushMatrix();
+    
   //move right
   translate(frame%(2*img.width+40), 0.0, 0.0);
 
   //zoom in
-  translate(0, height/2, 444);
+  translate(0, height/2, 444+advance*3);
   
   beginShape();
   texture(img);
@@ -43,6 +47,7 @@ void draw() {
   vertex(151,   31, 0, img.width, img.height);
   vertex(-151,  31, 0, 0,         img.height);
   endShape();
+  popMatrix();
 
   frame++;
 }
