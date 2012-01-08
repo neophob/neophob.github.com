@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Processing.js playground</title>
+  <script type="text/javascript" src="processing.js"></script>
+</head>
+
+<body bgcolor="#000000">
+  <center>
+    <h2>Perlins Friend!</h2>
+<script type="application/processing">
+
+//src: http://www.iquilezles.org/www/articles/warp/warp.htm
+
+int fXSIZE=600;
+int fYSIZE=320;
+
+PImage imgPerlin;
+float walk;
+
+void setup() {
+  size(fXSIZE, fYSIZE);
+  imgPerlin = createImage(fXSIZE, fYSIZE, RGB);
+  frameRate(40);
+}
+
+void draw() { 
+  imgPerlin.loadPixels();
+        
+  int ofs=0;
+  for (int y=0; y<fYSIZE; y++) {
+    for (int x=0; x<fXSIZE; x++) {
+        int nse1 = int(255f * pattern3(x/600f, y/320f) );
+        imgPerlin.pixels[ofs++] = color(nse1,nse1,nse1);
+    }
+  }
+  
+  imgPerlin.updatePixels();
+  walk += 0.01f;
+  
+  //display buffer
+  image(imgPerlin, 0, 0);        
+}
+
+//second domain wraping
+float pattern3(float x, float y) {
+	
+	float qx = pattern(x,y);
+	float qy = pattern(x+5.2f, y+1.3f);
+
+	float rx = pattern(x + 4f*qx +1.7f, y + 4f*qy +9.2f);
+	float ry = pattern(x + 4f*qx +8.3f, y + 4f*qy +2.8f);
+	
+    return pattern(x+4f*rx, y+4f*ry);
+}
+
+//first domain wraping
+float pattern2(float x, float y) {
+	
+	float qx = pattern(x,y);
+	float qy = pattern(x+5.2f, y+1.3f);
+	
+    return pattern(x+4f*qx, y+4f*qy);
+}
+
+
+float pattern(float x, float y) {
+      return noise(walk+x, walk+y);
+}
+
+
+</script>    
+    <canvas width="600" height="320"></canvas>
+  </center>
+</body>
+</html>
